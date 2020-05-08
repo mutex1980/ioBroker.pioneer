@@ -283,6 +283,9 @@ function main() {
     receiver.on("zvolume", function(state) {
                 adapter.setState('Zvolume', state, true );
                 });
+    receiver.on("listeningMode", function(state) {
+                adapter.setState('ListeningMode', state, true );
+                });
     
     // in this pioneer all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
@@ -384,7 +387,10 @@ adapter.on('stateChange', function (id, state) {
                 adapter.log.debug('ButtonVolumeDown changed');
                 receiver.volumeDown();
            break;
-
+           case 'ListeningMode':
+                adapter.log.debug('ListeningMode changed');
+                receiver.listeningMode(state.val);   
+           break;
            }
         }
     });
