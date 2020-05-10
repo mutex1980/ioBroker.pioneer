@@ -180,13 +180,16 @@ function main() {
                       native: {}
                       });
     
-    adapter.setObject('ListeningMode', { type: 'state',
-                      common: {
-                      name: 'ListeningMode',
-                      type: 'mixed',
-                      role: '' },
-                      native: {}
-                      });
+    adapter.setObject('ListeningMode', {
+        type: 'state',
+        common: {
+            name: 'ListeningMode',
+            type: 'number',
+            role: '',
+            states: avr.ListeningModes,
+        },
+        native: {}
+    });
 
     /*
     adapter.setObject('SetInput', { type: 'state',
