@@ -67,6 +67,15 @@ adapter.on('ready', function () {
 
 function main() {
 
+    var options = {
+        port: adapter.config.PORT,
+        host: adapter.config.IP,
+        log: true,
+        debug_log: adapter.log.debug
+    };
+
+    receiver = new avr.VSX(options);
+
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
     adapter.log.info('config IP: '    + adapter.config.IP);
@@ -179,14 +188,15 @@ function main() {
                       role: '' },
                       native: {}
                       });
-    
+
+
     adapter.setObject('ListeningMode', {
         type: 'state',
         common: {
             name: 'ListeningMode',
             type: 'number',
             role: '',
-            states: avr.ListeningModes,
+            states: receiver.getDisplayModes(),
         },
         native: {}
     });
@@ -241,14 +251,6 @@ function main() {
 
 */
     
-    var options = {
-    port: adapter.config.PORT,
-    host: adapter.config.IP,
-    log: true
-    };
-
-    receiver = new avr.VSX(options);
-    
     var inputs = avr.Inputs;
     var inputString = JSON.stringify(inputs);
     adapter.setState('InputJSON', inputString, true);
@@ -286,8 +288,9 @@ function main() {
     receiver.on("zvolume", function(state) {
                 adapter.setState('Zvolume', state, true );
                 });
-    receiver.on("listeningMode", function(state) {
-                adapter.setState('ListeningMode', state, true );
+    receiver.on("listening_mode_display", function(state) {
+                adapter.log.debug("received listening mode display: " + state + ", type: " + typeof(state))
+                adapter.setState('ListeningMode', state, true);
                 });
     
     // in this pioneer all states changes inside the adapters namespace are subscribed
@@ -391,7 +394,7 @@ adapter.on('stateChange', function (id, state) {
                 receiver.volumeDown();
            break;
            case 'ListeningMode':
-                adapter.log.debug('ListeningMode changed');
+                adapter.log.debug('ListeningMode changed: ' + state.val);
                 receiver.listeningMode(state.val);   
            break;
            }
