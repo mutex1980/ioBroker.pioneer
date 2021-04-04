@@ -120,13 +120,16 @@ function main() {
                       native: {}
                       });
 
-    adapter.setObject('Input', { type: 'state',
-                      common: {
-                      name: 'Input',
-                      type: 'mixed',
-                      role: '' },
-                      native: {}
-                      });
+    adapter.setObject('Input', {
+        type: 'state',
+        common: {
+              name: 'Input',
+              type: 'number',
+              role: '',
+              states: receiver.getInputModes(),
+         },
+         native: {}
+    });
     adapter.setObject('ZInput', { type: 'state',
                       common: {
                       name: 'ZInput',
@@ -181,14 +184,14 @@ function main() {
                       native: {}
                       });
 
-    adapter.setObject('InputJSON', { type: 'state',
+    /*adapter.setObject('InputJSON', { type: 'state',
                       common: {
                       name: 'InputJSON',
                       type: 'mixed',
                       role: '' },
                       native: {}
                       });
-
+*/
 
     adapter.setObject('ListeningMode', {
         type: 'state',
@@ -252,10 +255,10 @@ function main() {
 */
     
     var inputs = avr.Inputs;
-    var inputString = JSON.stringify(inputs);
-    adapter.setState('InputJSON', inputString, true);
+    //var inputString = JSON.stringify(inputs);
+    //adapter.setState('InputJSON', inputString, true);
  
-        //trigger on connection
+    //trigger on connection
     receiver.on("connect", function() {
                 adapter.setState('Connection', true, true);
                 });
@@ -277,7 +280,8 @@ function main() {
                 });
 
     receiver.on("input", function(state, name ) {
-                adapter.setState('Input', state + " : " + name , true );
+                adapter.log.debug("(iobroker.pioneer::main.js): received input mode from receiver: " + state + ", type: " + typeof(state))
+                adapter.setState('Input', state , true );
                 });
     receiver.on("zinput", function(state, name ) {
                 adapter.setState('ZInput', state + " : " + name , true );
@@ -353,10 +357,6 @@ adapter.on('stateChange', function (id, state) {
            adapter.log.debug('mute changed');
            receiver.mute(state.val);
            break;
-           case 'SetInput':
-                adapter.log.debug('SetInput changed');
-                receiver.selectInput(state.val);
-           break;
            case 'ZSetInput':
                 adapter.log.debug('ZSetInput changed');
                 receiver.selectZInput(state.val);
@@ -366,7 +366,7 @@ adapter.on('stateChange', function (id, state) {
                 receiver.selectZInput(state.val);
            break;
            case 'Input':
-                adapter.log.debug('ZInput changed');
+                adapter.log.debug('(iobroker.pioneer::stateChange) Input changed to: ' + state.val);
                 receiver.selectInput(state.val);
            break;
            case 'volume':
