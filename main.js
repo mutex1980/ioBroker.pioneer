@@ -293,7 +293,7 @@ function main() {
                 adapter.setState('Zvolume', state, true );
                 });
     receiver.on("listening_mode_display", function(state) {
-                adapter.log.debug("received listening mode display: " + state + ", type: " + typeof(state))
+                adapter.log.debug("(iobroker.pioneer::main.js) received listening mode display: " + state + ", type: " + typeof(state))
                 adapter.setState('ListeningMode', state, true);
                 });
     
