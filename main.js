@@ -120,6 +120,7 @@ function main() {
                       native: {}
                       });
 
+<<<<<<< HEAD
     adapter.setObject('Input', { type: 'state',
                       common: {
                       name: 'Input',
@@ -127,6 +128,18 @@ function main() {
                       role: '' },
                       native: {}
                       });
+=======
+    adapter.setObject('Input', {
+        type: 'state',
+        common: {
+              name: 'Input',
+              type: 'number',
+              role: '',
+              states: receiver.getInputModes(),
+         },
+         native: {}
+    });
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
     adapter.setObject('ZInput', { type: 'state',
                       common: {
                       name: 'ZInput',
@@ -181,14 +194,22 @@ function main() {
                       native: {}
                       });
 
+<<<<<<< HEAD
     adapter.setObject('InputJSON', { type: 'state',
+=======
+    /*adapter.setObject('InputJSON', { type: 'state',
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
                       common: {
                       name: 'InputJSON',
                       type: 'mixed',
                       role: '' },
                       native: {}
                       });
+<<<<<<< HEAD
 
+=======
+*/
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
 
     adapter.setObject('ListeningMode', {
         type: 'state',
@@ -252,10 +273,17 @@ function main() {
 */
     
     var inputs = avr.Inputs;
+<<<<<<< HEAD
     var inputString = JSON.stringify(inputs);
     adapter.setState('InputJSON', inputString, true);
  
         //trigger on connection
+=======
+    //var inputString = JSON.stringify(inputs);
+    //adapter.setState('InputJSON', inputString, true);
+ 
+    //trigger on connection
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
     receiver.on("connect", function() {
                 adapter.setState('Connection', true, true);
                 });
@@ -277,7 +305,12 @@ function main() {
                 });
 
     receiver.on("input", function(state, name ) {
+<<<<<<< HEAD
                 adapter.setState('Input', state + " : " + name , true );
+=======
+                adapter.log.debug("(iobroker.pioneer::main.js): received input mode from receiver: " + state + ", type: " + typeof(state))
+                adapter.setState('Input', state , true );
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
                 });
     receiver.on("zinput", function(state, name ) {
                 adapter.setState('ZInput', state + " : " + name , true );
@@ -289,7 +322,11 @@ function main() {
                 adapter.setState('Zvolume', state, true );
                 });
     receiver.on("listening_mode_display", function(state) {
+<<<<<<< HEAD
                 adapter.log.debug("received listening mode display: " + state + ", type: " + typeof(state))
+=======
+                adapter.log.debug("(iobroker.pioneer::main.js) received listening mode display: " + state + ", type: " + typeof(state))
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
                 adapter.setState('ListeningMode', state, true);
                 });
     
@@ -353,10 +390,13 @@ adapter.on('stateChange', function (id, state) {
            adapter.log.debug('mute changed');
            receiver.mute(state.val);
            break;
+<<<<<<< HEAD
            case 'SetInput':
                 adapter.log.debug('SetInput changed');
                 receiver.selectInput(state.val);
            break;
+=======
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
            case 'ZSetInput':
                 adapter.log.debug('ZSetInput changed');
                 receiver.selectZInput(state.val);
@@ -366,7 +406,11 @@ adapter.on('stateChange', function (id, state) {
                 receiver.selectZInput(state.val);
            break;
            case 'Input':
+<<<<<<< HEAD
                 adapter.log.debug('ZInput changed');
+=======
+                adapter.log.debug('(iobroker.pioneer::stateChange) Input changed to: ' + state.val);
+>>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
                 receiver.selectInput(state.val);
            break;
            case 'volume':
