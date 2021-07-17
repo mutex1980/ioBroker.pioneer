@@ -119,19 +119,6 @@ function main() {
                       role: 'indicator' },
                       native: {}
                       });
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-    adapter.setObject('Input', { type: 'state',
-                      common: {
-                      name: 'Input',
-                      type: 'mixed',
-                      role: '' },
-                      native: {}
-                      });
-=======
-=======
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
     adapter.setObject('Input', {
         type: 'state',
         common: {
@@ -142,10 +129,6 @@ function main() {
          },
          native: {}
     });
-<<<<<<< HEAD
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
     adapter.setObject('ZInput', { type: 'state',
                       common: {
                       name: 'ZInput',
@@ -200,30 +183,16 @@ function main() {
                       native: {}
                       });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    adapter.setObject('InputJSON', { type: 'state',
-=======
+
     /*adapter.setObject('InputJSON', { type: 'state',
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
-    /*adapter.setObject('InputJSON', { type: 'state',
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
                       common: {
                       name: 'InputJSON',
                       type: 'mixed',
                       role: '' },
                       native: {}
                       });
-<<<<<<< HEAD
-<<<<<<< HEAD
+*/
 
-=======
-*/
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
-*/
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
 
     adapter.setObject('ListeningMode', {
         type: 'state',
@@ -287,24 +256,9 @@ function main() {
 */
     
     var inputs = avr.Inputs;
-<<<<<<< HEAD
-<<<<<<< HEAD
     var inputString = JSON.stringify(inputs);
     adapter.setState('InputJSON', inputString, true);
- 
-        //trigger on connection
-=======
-    //var inputString = JSON.stringify(inputs);
-    //adapter.setState('InputJSON', inputString, true);
- 
-    //trigger on connection
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
-    //var inputString = JSON.stringify(inputs);
-    //adapter.setState('InputJSON', inputString, true);
- 
-    //trigger on connection
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
+
     receiver.on("connect", function() {
                 adapter.setState('Connection', true, true);
                 });
@@ -326,17 +280,8 @@ function main() {
                 });
 
     receiver.on("input", function(state, name ) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                adapter.setState('Input', state + " : " + name , true );
-=======
-                adapter.log.debug("(iobroker.pioneer::main.js): received input mode from receiver: " + state + ", type: " + typeof(state))
+                adapter.log.debug("(iobroker.pioneer::main.js): received input mode from receiver: " + state + ", type: " + typeof(state));
                 adapter.setState('Input', state , true );
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
-                adapter.log.debug("(iobroker.pioneer::main.js): received input mode from receiver: " + state + ", type: " + typeof(state))
-                adapter.setState('Input', state , true );
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
                 });
     receiver.on("zinput", function(state, name ) {
                 adapter.setState('ZInput', state + " : " + name , true );
@@ -348,15 +293,7 @@ function main() {
                 adapter.setState('Zvolume', state, true );
                 });
     receiver.on("listening_mode_display", function(state) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                adapter.log.debug("received listening mode display: " + state + ", type: " + typeof(state))
-=======
-                adapter.log.debug("(iobroker.pioneer::main.js) received listening mode display: " + state + ", type: " + typeof(state))
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
-                adapter.log.debug("(iobroker.pioneer::main.js) received listening mode display: " + state + ", type: " + typeof(state))
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
+                adapter.log.debug("(iobroker.pioneer::main.js) received listening mode display: " + state + ", type: " + typeof(state));
                 adapter.setState('ListeningMode', state, true);
                 });
     
@@ -420,16 +357,10 @@ adapter.on('stateChange', function (id, state) {
            adapter.log.debug('mute changed');
            receiver.mute(state.val);
            break;
-<<<<<<< HEAD
-<<<<<<< HEAD
            case 'SetInput':
                 adapter.log.debug('SetInput changed');
                 receiver.selectInput(state.val);
            break;
-=======
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
            case 'ZSetInput':
                 adapter.log.debug('ZSetInput changed');
                 receiver.selectZInput(state.val);
@@ -439,15 +370,7 @@ adapter.on('stateChange', function (id, state) {
                 receiver.selectZInput(state.val);
            break;
            case 'Input':
-<<<<<<< HEAD
-<<<<<<< HEAD
-                adapter.log.debug('ZInput changed');
-=======
                 adapter.log.debug('(iobroker.pioneer::stateChange) Input changed to: ' + state.val);
->>>>>>> 3a44368b9f63009ce5d44a132add7bc3e2cb91f9
-=======
-                adapter.log.debug('(iobroker.pioneer::stateChange) Input changed to: ' + state.val);
->>>>>>> 785ef391adbbf346bb38336e01594f8841237e0f
                 receiver.selectInput(state.val);
            break;
            case 'volume':
